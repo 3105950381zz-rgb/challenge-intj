@@ -148,10 +148,10 @@ function lv(){
   return `<div class="hp-bar"><span class="hp-icon">❤️</span><div class="hp-track"><div class="hp-fill ${hp>6?'green':hp>3?'yellow':'red'}" style="width:${(hp/maxHp)*100}%"></div></div><span class="hp-text">${hp}/${maxHp}</span></div>
     <div class="card fi"><div class="lv-hd"><span class="lv-name">⚠️ 第${cur+1}/${STAGES.length}关</span><span class="lv-death">💀 选错 -${s.dmg}HP</span></div>
     <div class="lv-scene">${s.scene}</div><div class="lv-line">"${s.line}"</div><div class="opts">
-	    <button class="opt" onclick="pk(0)"><span class="il s1">A</span>A选项</button>
-	    <button class="opt" onclick="pk(1)"><span class="il s2">B</span>B选项</button>
-	    <button class="opt" onclick="pk(2)"><span class="il s3">C</span>C选项</button>
-    <button class="opt" onclick="pk(3)"><span class="il s4">D</span>选项D</button>
+<button class="opt" onclick="pk(0)"><span class="il s1">A</span>感情不能用逻辑分析</button>
+<button class="opt" onclick="pk(1)"><span class="il s2">B</span>听TA说完再表达感受</button>
+<button class="opt" onclick="pk(2)"><span class="il s3">C</span>说你太冷漠了</button>
+<button class="opt" onclick="pk(3)"><span class="il s4">D</span>问TA分析出什么了</button>
     </div></div>`;
 }
 
