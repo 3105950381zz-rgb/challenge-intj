@@ -96,27 +96,7 @@ const DATA={
   winDesc:'你用逻辑和真诚重新赢得了INTJ的尊重。在TA的世界里，理性是最高的信任。你没有用情绪绑架TA，而是用行动证明了你的价值。TA为你重新打开了系统权限。'
 };
 
-const OPTIONS=[
-  '给TA一份理性的分析方案',
-  '尊重TA的空间不打扰',
-  '情绪化地质问TA',
-  '用逻辑证明你在乎'
-];
-
-const STAGES=[
-  {scene:'TA回消息从精简到消失',line:'知道了。',safe:2,death:'TA把你归为低优先级，你从此在系统后台'},
-  {scene:'你问TA在想什么TA说没什么',line:'没什么。',safe:4,death:'你追问了 而TA最烦被打扰思考'},
-  {scene:'TA的计划里没有你了',line:'已有安排了。',safe:2,death:'你问是什么 TA说你不懂'},
-  {scene:'你犯了同样的错第二次',line:'我说过了。',safe:1,death:'第二次犯错 TA不再信任你的判断力'},
-  {scene:'TA开始长时间独处',line:'需要一点时间。',safe:2,death:'你闯进去 门就锁了'},
-  {scene:'你发现TA在研究新东西但你被排除在外',line:'跟你没关系。',safe:4,death:'你非要参与 TA连解释都懒'},
-  {scene:'TA对你说的话开始做风险评估',line:'你说的不一定对。',safe:1,death:'你急了 TA觉得你无法理性沟通'},
-  {scene:'TA删掉了你们的共享备忘录',line:'已经不需要了。',safe:4,death:'你问为什么 TA说你自己想'},
-  {scene:'TA把时间都给了工作',line:'在忙。',safe:2,death:'你抱怨 TA觉得你不理解优先级'},
-  {scene:'你表达感情TA无动于衷',line:'所以呢？',safe:1,death:'你没有论据 只有情绪 所以出局'},
-  {scene:'TA用数据拆解你们的矛盾',line:'这是一个效率问题。',safe:1,death:'你说感情不讲效率 TA说那算了'},
-  {scene:'TA做了最终决定通知你',line:'考虑好了。',safe:2,death:'你争 TA不会改 你成为被删除的变量'}
-];
+const STAGES=[{scene:"TA回消息从精简到消失",line:"知道了。",options:["发一份清晰的复盘给TA","不打扰等TA来找你","疯狂发消息问为什么不回","用逻辑说明你在乎TA"],safe:2,death:"TA把你归为低优先级，你从此在系统后台"},{scene:"你问TA在想什么TA说没什么",line:"没什么。",options:["好那你想清楚了找我","你是不是在想我们的事","你明明在想什么","我也安静陪你想"],safe:2,death:"你追问了 而TA最烦被打扰思考"},{scene:"TA的计划里没有你了",line:"已有安排了。",options:["问TA什么安排能不能一起","好的那下次","你的计划里还有我吗","我等你安排完"],safe:2,death:"你问是什么 TA说你不懂"},{scene:"你犯了同样的错第二次",line:"我说过了。",options:["对不起我写下来保证不再犯","我知道了你别说了","你给我列个清单我一定照做","你再给我一次机会"],safe:1,death:"第二次犯错 TA不再信任你的判断力"},{scene:"TA开始长时间独处",line:"需要一点时间。",options:["你需要多久我都等","别一个人待着我们一起解决","那你待着我给你送吃的","是不是我做错什么了"],safe:2,death:"你闯进去 门就锁了"},{scene:"你发现TA在研究新东西但你被排除在外",line:"跟你没关系。",options:["你学这个有什么用","我能帮你什么吗","你是不是在躲我","我也去学然后跟你聊"],safe:4,death:"你非要参与 TA连解释都懒"},{scene:"TA对你说的话开始做风险评估",line:"你说的不一定对。",options:["你分析一下哪里不对","你总是否定我","那你觉得什么是对的","我们可以一起论证"],safe:1,death:"你急了 TA觉得你无法理性沟通"},{scene:"TA删掉了你们的共享备忘录",line:"已经不需要了。",options:["为什么不需要了你告诉我","那我们重新建一个","你删了是吧那我删了","我们还有什么是一起的"],safe:4,death:"你问为什么 TA说你自己想"},{scene:"TA把时间都给了工作",line:"在忙。",options:["你忙吧我不打扰你","你能不能陪陪我","你忙完了告诉我","你这样我们怎么继续"],safe:2,death:"你抱怨 TA觉得你不理解优先级"},{scene:"你表达感情TA无动于衷",line:"所以呢？",options:["所以我爱你你听不到吗","所以我希望你也回应我","所以我站在这里告诉你","所以你一点感觉都没有吗"],safe:1,death:"你没有论据 只有情绪 所以出局"},{scene:"TA用数据拆解你们的矛盾",line:"这是一个效率问题。",options:["感情不是效率问题","那你觉得最优解是什么","我不同意你的分析","你的数据不能代表我的感受"],safe:1,death:"你说感情不讲效率 TA说那算了"},{scene:"TA做了最终决定通知你",line:"考虑好了。",options:["我尊重你的决定但我不会放弃","你真的考虑好了吗","不要走我们可以解决","好祝你找到更好的"],safe:2,death:"你争 TA不会改 你成为被删除的变量"}];
 
 let cur=0,over=false;
 const A=document.getElementById('app');
@@ -151,7 +131,7 @@ function lv(){
   if(over)return'';
   if(cur>=STAGES.length)return end();
   const s=STAGES[cur];
-  const optsHtml=OPTIONS.map((o,i)=>`<button class="opt" onclick="pk(${i})"><span class="il s${i+1}">${LABELS[i]}</span>${o}</button>`).join('');
+  const optsHtml=s.options.map((o,i)=>`<button class="opt" onclick="pk(${i})"><span class="il s${i+1}">${LABELS[i]}</span>${o}</button>`).join('');
   return `<div class="card fi">
     <div class="lv-hd">
       <span class="lv-name">⚠️ 第${cur+1}/${STAGES.length}关</span>
