@@ -246,18 +246,17 @@ function st(m){
 }
 
 function cap(){
-  var el=document.getElementById('capArea');
-  if(!el)return;
-  el.scrollIntoView({behavior:'smooth',block:'center'});
-  var old=document.getElementById('ssGuide');
-  if(old)old.remove();
-  var g=document.createElement('div');
-  g.id='ssGuide';
-  g.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;pointer-events:none';
-  g.innerHTML='<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.85);color:#fff;padding:24px 32px;border-radius:16px;text-align:center;font-size:16px;letter-spacing:1px;line-height:1.8;border:2px dashed rgba(255,255,255,.3)">📱 截屏保存<br><span style="font-size:12px;opacity:.5">电源键+音量下键 或 截屏手势<br>然后发朋友圈</span></div>'
-    +'<div style="position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:3px solid #feca57;border-radius:12px;box-shadow:0 0 0 9999px rgba(0,0,0,.3);pointer-events:none"></div>';
-  document.body.appendChild(g);
-  setTimeout(function(){g.remove()},5000);
+  var txt='我正在挑战【挽回'+DATA.title+'】你能闯到第几关？来试试吧 👇 '+window.location.href;
+  if(navigator.share){
+    navigator.share({title:'挽回'+DATA.title+'挑战',text:txt,url:window.location.href}).catch(function(){});
+  }else{
+    var e=document.createElement('textarea');
+    e.value=txt;e.style.position='fixed';e.style.opacity='0';
+    document.body.appendChild(e);e.select();
+    try{document.execCommand('copy')}catch(e){}
+    document.body.removeChild(e);
+    st('✅ 链接已复制，去转发给好友吧');
+  }
 }
 
 hm();
